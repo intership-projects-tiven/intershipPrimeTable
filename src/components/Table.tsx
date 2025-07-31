@@ -1,5 +1,3 @@
-import "primereact/resources/themes/lara-light-cyan/theme.css";
-
 import { Column } from "primereact/column";
 import { useEffect, useState } from "react";
 import SelectRowsForm from "./SelectRowsForm";
@@ -8,11 +6,12 @@ import {
   DataTable,
   type DataTableSelectAllChangeEvent,
 } from "primereact/datatable";
-import { getTableData ,type TableData } from "../api/table";
+import { getTableData, type TableData } from "../api/table";
 
 const Table = () => {
   const { data, isFetching, setCurrPage } = useTableData();
   const [selectedRows, setSelectedRows] = useState<TableData[] | []>([]);
+  const [isSelecting, setIsSelecting] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
   useEffect(() => {
     if (!selectedRows || !data?.data) return setSelectAll(false);
@@ -27,7 +26,9 @@ const Table = () => {
 
   //  this will select require rows
   async function getUserRowSelection(input: number) {
+    setIsSelecting(true);
     const data = await getTableData({ limit: input });
+    setIsSelecting(false)
     setSelectedRows(data.data);
   }
   // type not working DataTableSelectionChangeEvent fix later
@@ -37,7 +38,7 @@ const Table = () => {
     setSelectedRows(value);
     setSelectAll(value.length === data?.data.length);
   }
-  // effect only rows which are visual 
+  // effect only rows which are visual
   function onSelectAllChange(event: DataTableSelectAllChangeEvent) {
     const selectAll = event.checked;
     if (selectAll) {
@@ -57,7 +58,7 @@ const Table = () => {
     } else {
       setSelectAll(false);
       const currentPageIds = data?.data.map((row) => row.id);
-      if(!currentPageIds) return
+      if (!currentPageIds) return;
       const newSelectedRows = selectedRows.filter(
         (row) => !currentPageIds.includes(row.id)
       );
@@ -92,7 +93,7 @@ const Table = () => {
             headerClassName="customHeader"
             headerStyle={{ width: "3rem" }}
             header={() => (
-              <SelectRowsForm getSelectedRows={getUserRowSelection} />
+              <SelectRowsForm getSelectedRows={getUserRowSelection} isLoading={isSelecting}/>
             )}
           ></Column>
 

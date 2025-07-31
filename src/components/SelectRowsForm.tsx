@@ -1,11 +1,16 @@
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
 import { OverlayPanel } from "primereact/overlaypanel";
+
+import { IconField } from "primereact/iconfield";
+import { InputIcon } from "primereact/inputicon";
+
 import { useRef, useState, type FormEvent } from "react";
 interface props {
   getSelectedRows: (input: number) => void;
+  isLoading?: boolean
 }
-const SelectRowsForm = ({ getSelectedRows }: props) => {
+const SelectRowsForm = ({ getSelectedRows, isLoading }: props) => {
   const op = useRef<null | OverlayPanel>(null);
   const [value, setValue] = useState<number | null>();
   function onSubmit(e: FormEvent) {
@@ -36,16 +41,19 @@ const SelectRowsForm = ({ getSelectedRows }: props) => {
       </button>
       <OverlayPanel ref={op}>
         <form
-          className="flex flex-col gap-4 items-end curp"
+          className="flex flex-col gap-4 items-end curp w-full"
           onSubmit={(e) => onSubmit(e)}
         >
-          <InputNumber
-            value={value}
-            onValueChange={(e) => setValue(e.value)}
-            min={0}
-            max={100}
-            placeholder="Select rows"
-          />
+          <IconField iconPosition="right" className="relative">
+            <InputIcon className={`pi pi-spin ${isLoading &&  'pi-spinner'} absolute right-3`}></InputIcon>
+            <InputNumber
+              value={value}
+              onValueChange={(e) => setValue(e.value)}
+              min={0}
+              max={100}
+              placeholder="Select no of rows"
+            />
+          </IconField>
           <div>
             <Button label="Submit" />
           </div>
