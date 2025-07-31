@@ -38,7 +38,6 @@ Open your browser at: [http://localhost:5173](http://localhost:5173)
 - PrimeReact + PrimeIcons
 - Tailwind CSS
 - React Query (TanStack)
-- JSONPlaceholder API (for dummy user data)
 
 ## License
 
