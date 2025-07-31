@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+.table {
+  width: 75rem;
+  margin: auto;
+}
+.customHeader .p-column-header-content {
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 4px;
+}
+
