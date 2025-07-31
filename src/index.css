@@ -1,5 +1,7 @@
 @import "tailwindcss";
-
+body{
+  padding: 8px;
+}
 .table {
   width: 75rem;
   margin: auto;
