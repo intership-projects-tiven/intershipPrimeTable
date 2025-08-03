@@ -26,17 +26,17 @@ export async function getTableData({
 }: {
   page?: number;
   limit?: number;
-  fields?: string;
+  fields?: string[] | string;
 }): Promise<DataType> {
+  const selectedFields = Array.isArray(fields) ? fields.join(",") : fields;
   let url = `https://api.artic.edu/api/v1/artworks?page=${page}&&limit=${limit}`;
-  if (fields) url += `&&fields=${fields}`;
+  if (fields) url += `&&fields=${selectedFields}`;
   try {
     const res = await fetch(url);
     const data = res.json();
     return data;
   } catch (error) {
-    console.log(error)
-    throw error
+    console.log(error);
+    throw error;
   }
-
 }
