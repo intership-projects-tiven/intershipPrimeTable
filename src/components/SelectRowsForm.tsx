@@ -50,7 +50,7 @@ const SelectRowsForm = ({ getSelectedRows, isLoading }: props) => {
               value={value}
               onValueChange={(e) => setValue(e.value)}
               min={0}
-              max={100}
+              max={1000}
               placeholder="Select no of rows"
             />
           </IconField>

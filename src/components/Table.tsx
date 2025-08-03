@@ -27,8 +27,8 @@ const Table = () => {
   //  this will select require rows
   async function getUserRowSelection(input: number) {
     setIsSelecting(true);
-    const data = await getTableData({ limit: input });
-    setIsSelecting(false)
+    const data = await getTableData({ limit: input, fields: "id" });
+    setIsSelecting(false);
     setSelectedRows(data.data);
   }
   // type not working DataTableSelectionChangeEvent fix later
@@ -93,7 +93,10 @@ const Table = () => {
             headerClassName="customHeader"
             headerStyle={{ width: "3rem" }}
             header={() => (
-              <SelectRowsForm getSelectedRows={getUserRowSelection} isLoading={isSelecting}/>
+              <SelectRowsForm
+                getSelectedRows={getUserRowSelection}
+                isLoading={isSelecting}
+              />
             )}
           ></Column>
 
